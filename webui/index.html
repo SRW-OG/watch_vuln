@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WatchVuln</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">WatchVuln</div>
+      <button id="navVulns" class="btn btn-secondary hidden">漏洞</button>
+      <button id="navConfig" class="btn btn-secondary hidden">配置</button>
+      <div class="spacer"></div>
+      <div class="userbar">
+        <div id="currentUser" class="muted"></div>
+        <button id="logoutBtn" class="btn btn-secondary hidden">退出登录</button>
+      </div>
+    </div>
+
+    <div class="page">
+      <div id="loginView" class="card hidden">
+        <h2>登录</h2>
+        <form id="loginForm" class="form">
+          <label class="label">
+            <span>用户名</span>
+            <input id="loginUsername" class="input" autocomplete="username" required />
+          </label>
+          <label class="label">
+            <span>密码</span>
+            <input id="loginPassword" class="input" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="btn" type="submit">登录</button>
+          <div id="loginError" class="error hidden"></div>
+        </form>
+      </div>
+
+      <div id="appView" class="hidden">
+        <div id="vulnView" class="grid">
+          <div class="card">
+            <div class="toolbar">
+              <input id="searchInput" class="input" placeholder="搜索 key / title / cve / description" />
+              <select id="severitySelect" class="input">
+                <option value="">全部严重度</option>
+                <option value="critical">critical</option>
+                <option value="high">high</option>
+                <option value="medium">medium</option>
+                <option value="low">low</option>
+              </select>
+              <button id="searchBtn" class="btn btn-secondary">查询</button>
+            </div>
+            <div class="meta">
+              <div id="listMeta" class="muted"></div>
+              <div class="pager">
+                <button id="prevBtn" class="btn btn-secondary">上一页</button>
+                <button id="nextBtn" class="btn btn-secondary">下一页</button>
+              </div>
+            </div>
+            <div class="tableWrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Key</th>
+                    <th>标题</th>
+                    <th>严重度</th>
+                    <th>CVE</th>
+                    <th>来源</th>
+                    <th>时间</th>
+                  </tr>
+                </thead>
+                <tbody id="vulnTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="detailHeader">
+              <div class="detailTitle">详情</div>
+              <div id="detailKey" class="muted"></div>
+            </div>
+            <div id="detailBody" class="detailBody muted">选择一条记录查看详情</div>
+          </div>
+        </div>
+
+        <div id="configView" class="card hidden">
+          <div class="toolbar">
+            <div class="detailTitle">配置</div>
+            <div class="spacer"></div>
+            <button id="configReloadBtn" class="btn btn-secondary">刷新</button>
+            <button id="configSaveBtn" class="btn">保存</button>
+          </div>
+          <div id="configMeta" class="muted" style="margin-top: 8px;"></div>
+          <div id="configForm" class="configForm"></div>
+          <div id="configStatus" class="muted" style="margin-top: 8px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

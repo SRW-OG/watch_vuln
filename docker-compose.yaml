@@ -1,0 +1,39 @@
+version: '3'
+services:
+  watchvuln:
+    restart: always
+    image: zemal/watchvuln:latest
+    environment:
+      DINGDING_ACCESS_TOKEN: YOUR_TOKEN_HERE
+      DINGDING_SECRET: YOUR_SECRET_HERE
+      DB_CONN: postgres://watchvuln:watchvuln@postgres:5432/watchvuln
+      INTERVAL: 30m
+    depends_on:
+      - postgres
+
+  watchvuln-web:
+    restart: always
+    image: zemal/watchvuln:latest
+    command: ["-c", "/app/config.yaml", "web"]
+    ports:
+      - "8080:8080"
+    environment:
+      WEB_LISTEN: 0.0.0.0:8080
+      WEB_UI_DIR: /app/webui
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: change-me
+      SESSION_SECRET: change-me-to-a-long-random-secret
+      DB_CONN: sqlite3:///app/data/vuln_v3.sqlite3
+    volumes:
+      - "./config.yaml:/app/config.yaml"
+      - "./data/sqlite:/app/data"
+
+  postgres:
+    restart: always
+    image: postgres:14.4-alpine
+    environment:
+      POSTGRES_DB: watchvuln
+      POSTGRES_USER: watchvuln
+      POSTGRES_PASSWORD: watchvuln
+    volumes:
+      - "./data/postgresql:/var/lib/postgresql/data"

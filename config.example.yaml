@@ -1,0 +1,54 @@
+db_conn: sqlite3://vuln_v3.sqlite3
+sources:
+    - avd
+    - nox
+    - oscs
+    - threatbook
+    - seebug
+    - struts2
+    - kev
+    - venustech
+interval: 30m
+enable_cve_filter: true
+no_github_search: false
+no_start_message: false
+no_sleep: false
+diff_mode: false
+white_keywords: []
+black_keywords: []
+pusher:
+    - access_token: ""
+      sign_secret: ""
+      type: dingding
+    - access_token: ""
+      sign_secret: ""
+      type: lark
+    - key: ""
+      type: wechatwork
+    - access_token: ""
+      domain: ""
+      sign_secret: ""
+      type: lanxin
+    - type: bark
+      url: ""
+    - key: ""
+      type: serverchan
+    - token: ""
+      type: pushplus
+    - bot_token: ""
+      chat_ids: ""
+      type: telegram
+    - channel: '#security-alerts'
+      type: slack
+      webhook_url: ""
+    - type: webhook
+      url: ""
+proxy: ""
+skip_tls_verify: false
+test: false
+web_listen: 127.0.0.1:8080
+web_ui_dir: webui
+admin_username: admin
+admin_password: ""
+admin_password_bcrypt: ""
+session_secret: ""
